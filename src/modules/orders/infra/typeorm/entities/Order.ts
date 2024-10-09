@@ -8,7 +8,7 @@ import {
   UpdateDateColumn,
 } from 'typeorm';
 
-import Customer from '@modules/customers/typeorm/entities/Customer';
+import Customer from '@modules/customers/infra/typeorm/entities/Customer';
 import OrdersProducts from './OrdersProducts';
 
 @Entity('orders')
@@ -17,7 +17,7 @@ class Order {
   id: string;
 
   @ManyToOne(() => Customer) // Muitas ordens para um customer
-  @JoinColumn({name: 'customer_id'})
+  @JoinColumn({ name: 'customer_id' })
   customer: Customer;
 
   @OneToMany(() => OrdersProducts, order_products => order_products.order, {

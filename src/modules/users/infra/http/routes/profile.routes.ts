@@ -22,7 +22,7 @@ profileRouter.put(
         .valid(Joi.ref('password'))
         .when('password', {
           is: Joi.exist(),
-          then: Joi.required()
+          then: Joi.required(),
         }),
     },
   }),

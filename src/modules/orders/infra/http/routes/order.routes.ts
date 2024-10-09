@@ -6,7 +6,7 @@ import isAuthenticated from '@shared/http/middlewares/isAuthenticated';
 const ordersRouter = Router();
 const ordersController = new OrdersController();
 
-ordersRouter.use(isAuthenticated)
+ordersRouter.use(isAuthenticated);
 
 ordersRouter.get(
   '/:id',

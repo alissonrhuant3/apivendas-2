@@ -1,7 +1,7 @@
 import { getCustomRepository } from 'typeorm';
-import {compare, hash} from "bcryptjs"
-import UsersRepository from '../typeorm/repositories/UsersRepository';
-import User from '../typeorm/entities/User';
+import { compare, hash } from 'bcryptjs';
+import UsersRepository from '../infra/typeorm/repositories/UsersRepository';
+import User from '../infra/typeorm/entities/User';
 import AppError from '@shared/errors/AppError';
 
 interface IRequest {
@@ -32,15 +32,15 @@ class UpdateProfileService {
 
     //Verificação se existe o email no banco de dados, e se o email não pertence ao próprio usuário
     if (userUpdateEmail && userUpdateEmail.id !== user_id) {
-      throw new AppError('There is already one user with this email.')
+      throw new AppError('There is already one user with this email.');
     }
 
     if (password && !old_password) {
-      throw new AppError('Old password is required.')
+      throw new AppError('Old password is required.');
     }
 
     if (password && old_password) {
-      const checkOldPassword = await compare(old_password, user.password)
+      const checkOldPassword = await compare(old_password, user.password);
 
       if (!checkOldPassword) {
         throw new AppError('Old password does not match.');

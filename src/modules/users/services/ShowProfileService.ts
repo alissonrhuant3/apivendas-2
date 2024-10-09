@@ -1,6 +1,6 @@
 import { getCustomRepository } from 'typeorm';
-import UsersRepository from '../typeorm/repositories/UsersRepository';
-import User from '../typeorm/entities/User';
+import UsersRepository from '../infra/typeorm/repositories/UsersRepository';
+import User from '../infra/typeorm/entities/User';
 import AppError from '@shared/errors/AppError';
 
 interface IRequest {
@@ -8,13 +8,13 @@ interface IRequest {
 }
 
 class ShowProfileService {
-  public async execute({user_id}: IRequest): Promise<User> {
+  public async execute({ user_id }: IRequest): Promise<User> {
     const usersRepository = getCustomRepository(UsersRepository);
 
     const user = await usersRepository.findById(user_id);
 
     if (!user) {
-      throw new AppError('User not found')
+      throw new AppError('User not found');
     }
 
     return user;

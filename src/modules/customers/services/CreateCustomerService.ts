@@ -1,7 +1,7 @@
 import { getCustomRepository } from 'typeorm';
 import AppError from '@shared/errors/AppError';
-import CustomersRepository from '../typeorm/repositories/CustomersRepository';
-import Customer from '../typeorm/entities/Customer';
+import CustomersRepository from '../infra/typeorm/repositories/CustomersRepository';
+import Customer from '../infra/typeorm/entities/Customer';
 import { hash } from 'bcryptjs';
 
 interface IRequest {
@@ -18,10 +18,10 @@ class CreateCustomerService {
       throw new AppError('Email addres already used.');
     }
 
-      const customer = customersRepository.create({
-        name,
-        email,
-      });
+    const customer = customersRepository.create({
+      name,
+      email,
+    });
 
     await customersRepository.save(customer);
 
