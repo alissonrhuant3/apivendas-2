@@ -1,7 +1,7 @@
-import { getCustomRepository } from 'typeorm';
-import CustomersRepository from '../infra/typeorm/repositories/CustomersRepository';
 import Customer from '../infra/typeorm/entities/Customer';
 import AppError from '@shared/errors/AppError';
+import { ICustomersRepository } from '../domain/repositories/ICustomersRepository';
+import { inject, injectable } from 'tsyringe';
 
 interface IRequest {
   id: string;
@@ -9,17 +9,21 @@ interface IRequest {
   email: string;
 }
 
+@injectable()
 class UpdateCustomerService {
-  public async execute({ id, name, email }: IRequest): Promise<Customer> {
-    const customersRepository = getCustomRepository(CustomersRepository);
+  constructor(
+    @inject('CustomersRepository')
+    private customersRepository: ICustomersRepository,
+  ) {}
 
-    const customer = await customersRepository.findById(id);
+  public async execute({ id, name, email }: IRequest): Promise<Customer> {
+    const customer = await this.customersRepository.findById(id);
 
     if (!customer) {
       throw new AppError('Customer not found.');
     }
 
-    const customerExists = await customersRepository.findByEmail(email);
+    const customerExists = await this.customersRepository.findByEmail(email);
 
     //Verificação se existe o email no banco de dados, e se o email não pertence ao próprio usuário
     if (customerExists && email !== customer.email) {
@@ -29,7 +33,7 @@ class UpdateCustomerService {
     customer.name = name;
     customer.email = email;
 
-    await customersRepository.save(customer);
+    await this.customersRepository.save(customer);
 
     return customer;
   }

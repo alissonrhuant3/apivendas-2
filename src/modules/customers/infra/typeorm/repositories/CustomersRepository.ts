@@ -10,8 +10,8 @@ class CustomersRepository implements ICustomersRepository {
     this.ormRepository = getRepository(Customer);
   }
 
-  public async create({name,email}: ICreateCustomer): Promise<Customer> {
-    const customer = this.ormRepository.create({name,email});
+  public async create({ name, email }: ICreateCustomer): Promise<Customer> {
+    const customer = this.ormRepository.create({ name, email });
 
     await this.ormRepository.save(customer);
 
@@ -22,6 +22,10 @@ class CustomersRepository implements ICustomersRepository {
     await this.ormRepository.save(customer);
 
     return customer;
+  }
+
+  public async remove(customer: Customer): Promise<void> {
+    await this.ormRepository.remove(customer);
   }
 
   public async findByName(name: string): Promise<Customer | undefined> {
@@ -52,6 +56,12 @@ class CustomersRepository implements ICustomersRepository {
     });
 
     return customer;
+  }
+
+  public async findAll(): Promise<Customer[] | undefined> {
+    const customers = await this.ormRepository.find();
+
+    return customers;
   }
 }
 

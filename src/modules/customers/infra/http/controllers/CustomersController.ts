@@ -5,10 +5,11 @@ import CreateCustomerService from '../../../services/CreateCustomerService';
 import UpdateCustomerService from '../../../services/UpdateCustomerService';
 import DeleteCustomerService from '../../../services/DeleteCustomerService';
 import CustomersRepository from '../../typeorm/repositories/CustomersRepository';
+import { container } from 'tsyringe';
 
 export default class CustomersController {
   public async index(request: Request, response: Response): Promise<Response> {
-    const listCustomers = new ListCustomerService();
+    const listCustomers = container.resolve(ListCustomerService);
 
     const costumers = await listCustomers.execute();
 
@@ -18,7 +19,7 @@ export default class CustomersController {
   public async show(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
 
-    const showCostumer = new ShowCustomerService();
+    const showCostumer = container.resolve(ShowCustomerService);
 
     const costumer = await showCostumer.execute({ id });
 
@@ -28,9 +29,7 @@ export default class CustomersController {
   public async create(request: Request, response: Response): Promise<Response> {
     const { name, email } = request.body;
 
-    const customersRepository = new CustomersRepository();
-
-    const createCostumer = new CreateCustomerService(customersRepository);
+    const createCostumer = container.resolve(CreateCustomerService);
 
     const customer = await createCostumer.execute({
       name,
@@ -44,7 +43,7 @@ export default class CustomersController {
     const { name, email } = request.body;
     const { id } = request.params;
 
-    const updateCustomer = new UpdateCustomerService();
+    const updateCustomer = container.resolve(UpdateCustomerService);
 
     const costumer = await updateCustomer.execute({
       id,
@@ -58,7 +57,7 @@ export default class CustomersController {
   public async delete(request: Request, response: Response): Promise<Response> {
     const { id } = request.params;
 
-    const deleteCustomer = new DeleteCustomerService();
+    const deleteCustomer = container.resolve(DeleteCustomerService);
 
     await deleteCustomer.execute({ id });
 
