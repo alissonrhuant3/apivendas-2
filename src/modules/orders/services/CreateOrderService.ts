@@ -6,14 +6,21 @@ import CustomersRepository from '@modules/customers/infra/typeorm/repositories/C
 import { ProductRepository } from '@modules/products/infra/typeorm/repositories/ProductsRepository';
 import { ICreateOrders } from '../domains/models/ICreateOrders';
 import { inject, injectable } from 'tsyringe';
+import { ICustomersRepository } from '@modules/customers/domain/repositories/ICustomersRepository';
+import { IOrdersRepository } from '../domains/repositories/IOrdersRepository';
+import { IProductsRepository } from '@modules/products/domains/repositories/IProductsRepository';
 
 @injectable()
 class CreateOrderService {
   constructor(
     @inject('CustomersRepository')
-    private customersRepository: CustomersRepository,
+    private customersRepository: ICustomersRepository,
+    @inject('OrdersRepository')
+    private ordersRepository: IOrdersRepository,
+    @inject('ProductRepository')
+    private productsRepository: IProductsRepository,
   ) {}
-  
+
   public async execute({ customer_id, products }: ICreateOrders): Promise<Order> {
     const ordersRepository = getCustomRepository(OrdersRepository);
     const customersRepository = getCustomRepository(CustomersRepository);
@@ -75,7 +82,7 @@ class CreateOrderService {
         product.quantity,
     }));
 
-    await productRepository.save(updatedProductQuantity);
+    await this.productsRepository.updateStock(updatedProductQuantity);
 
     return order;
   }

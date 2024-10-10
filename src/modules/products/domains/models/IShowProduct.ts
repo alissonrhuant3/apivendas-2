@@ -1,0 +1,3 @@
+interface IShowProduct {
+  id: string;
+}

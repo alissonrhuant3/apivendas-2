@@ -1,6 +1,5 @@
-import { EntityRepository, getRepository, Repository } from 'typeorm';
+import {  getRepository, Repository } from 'typeorm';
 import Order from '../entities/Order';
-import Customer from '@modules/customers/infra/typeorm/entities/Customer';
 import { IRequestCreateOrders } from '@modules/orders/domains/models/IRequestCreateOrders';
 import { IOrdersRepository } from '@modules/orders/domains/repositories/IOrdersRepository';
 

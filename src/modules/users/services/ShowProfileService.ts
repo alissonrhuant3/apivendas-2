@@ -2,13 +2,16 @@ import { getCustomRepository } from 'typeorm';
 import UsersRepository from '../infra/typeorm/repositories/UsersRepository';
 import User from '../infra/typeorm/entities/User';
 import AppError from '@shared/errors/AppError';
+import { IReqShowProfile } from '../domains/models/IReqShowProfile';
+import { injectable } from 'tsyringe';
+import { IUsersRepository } from '../domains/repositories/IUsersRepository';
 
-interface IRequest {
-  user_id: string;
-}
-
+@injectable()
 class ShowProfileService {
-  public async execute({ user_id }: IRequest): Promise<User> {
+  constructor(
+    private usersRepository: IUsersRepository,
+  ) {}
+  public async execute({ user_id }: IReqShowProfile): Promise<User> {
     const usersRepository = getCustomRepository(UsersRepository);
 
     const user = await usersRepository.findById(user_id);
