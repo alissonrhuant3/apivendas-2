@@ -1,11 +1,8 @@
 import AppError from '@shared/errors/AppError';
 import Order from '../infra/typeorm/entities/Order';
-import { OrdersRepository } from '../infra/typeorm/repositories/OrdersRepository';
 import { inject, injectable } from 'tsyringe';
 import { IShowOrder } from '../domains/models/IShowOrder';
 import { IOrdersRepository } from '../domains/repositories/IOrdersRepository';
-
-
 
 @injectable()
 class ShowOrderService {

@@ -3,7 +3,7 @@ import User from '../entities/User';
 import { IUsersRepository } from '@modules/users/domains/repositories/IUsersRepository';
 import { IReqCreateUser } from '@modules/users/domains/models/IReqCreateUser';
 
-class UsersRepository implements IUsersRepository {
+export class UsersRepository implements IUsersRepository {
   private ormRepository: Repository<User>;
 
   constructor() {
@@ -61,4 +61,3 @@ class UsersRepository implements IUsersRepository {
   }
 }
 
-export default UsersRepository;

@@ -1,6 +1,4 @@
-import { getCustomRepository } from 'typeorm';
 import { compare, hash } from 'bcryptjs';
-import UsersRepository from '../infra/typeorm/repositories/UsersRepository';
 import User from '../infra/typeorm/entities/User';
 import AppError from '@shared/errors/AppError';
 import { inject, injectable } from 'tsyringe';

@@ -3,7 +3,7 @@ import Order from '../entities/Order';
 import { IRequestCreateOrders } from '@modules/orders/domains/models/IRequestCreateOrders';
 import { IOrdersRepository } from '@modules/orders/domains/repositories/IOrdersRepository';
 
-export class OrdersRepository implements IOrdersRepository {
+export default class OrdersRepository implements IOrdersRepository {
   private ormRepository: Repository<Order>
 
   constructor() {

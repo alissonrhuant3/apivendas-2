@@ -1,7 +1,5 @@
-import { getCustomRepository } from 'typeorm';
 import AppError from '@shared/errors/AppError';
 import User from '../infra/typeorm/entities/User';
-import UsersRepository from '../infra/typeorm/repositories/UsersRepository';
 import { hash } from 'bcryptjs';
 import { IReqCreateUser } from '../domains/models/IReqCreateUser';
 import { inject, injectable } from 'tsyringe';
@@ -13,6 +11,7 @@ class CreateUserService {
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
   ) {}
+
   public async execute({
     name,
     email,

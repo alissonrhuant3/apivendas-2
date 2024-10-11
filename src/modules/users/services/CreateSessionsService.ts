@@ -1,6 +1,4 @@
-import { getCustomRepository } from 'typeorm';
 import AppError from '@shared/errors/AppError';
-import UsersRepository from '../infra/typeorm/repositories/UsersRepository';
 import { compare, hash } from 'bcryptjs';
 import { sign } from 'jsonwebtoken';
 import authConfig from '@config/auth';
