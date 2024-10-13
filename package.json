@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "ts-node-dev -r tsconfig-paths/register --inspect --transpile-only --ignore-watch node_modules src/shared/infra/http/server.ts",
     "build": "babel src --extensions \".js,.ts\" --out-dir dist --copy-files",
-    "test": "jest",
+    "jest": "jest",
     "lint": "eslint **/*.ts",
     "lint-fix": "eslint **/*.ts --fix",
     "typeorm": "ts-node-dev -r tsconfig-paths/register ./node_modules/typeorm/cli.js"
@@ -28,6 +28,7 @@
     "@types/node": "^22.7.1",
     "@types/nodemailer": "^6.4.16",
     "@types/redis": "^4.0.10",
+    "@types/uuid": "^10.0.0",
     "@typescript-eslint/eslint-plugin": "^8.7.0",
     "@typescript-eslint/parser": "^8.7.0",
     "eslint": "^9.11.1",
@@ -73,6 +74,7 @@
     "reflect-metadata": "^0.2.2",
     "tsyringe": "^4.8.0",
     "typeorm": "^0.2.29",
-    "typeorm-pagination": "^2.0.3"
+    "typeorm-pagination": "^2.0.3",
+    "uuid": "^10.0.0"
   }
 }
