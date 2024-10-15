@@ -1,21 +1,18 @@
 import AppError from '@shared/errors/AppError';
 import FakeCustomersRepository from '../../domain/repositories/fakes/FakeCustomersRepository';
-import CreateCustomerService from '../CreateCustomerService';
 import UpdateCustomerService from '../UpdateCustomerService';
 
 let fakeCustomersRepository: FakeCustomersRepository;
-let createCustomer: CreateCustomerService;
 let updateCustomer: UpdateCustomerService;
 
 describe('UpdateCustomer', () => {
   beforeEach(() => {
     fakeCustomersRepository = new FakeCustomersRepository();
-    createCustomer = new CreateCustomerService(fakeCustomersRepository);
     updateCustomer = new UpdateCustomerService(fakeCustomersRepository);
   });
 
   it('atualizacao de um cliente', async () => {
-    const customer = await createCustomer.execute({
+    const customer = await fakeCustomersRepository.create({
       name: 'Alisson Rhuan',
       email: 'alisson@gmail.com',
     });
@@ -32,7 +29,7 @@ describe('UpdateCustomer', () => {
   it('cliente nao existe', async () => {
     let id = '5156165165156';
 
-    const customer = await createCustomer.execute({
+    await fakeCustomersRepository.create({
       name: 'Alisson Rhuan',
       email: 'alisson@gmail.com',
     });
@@ -47,12 +44,12 @@ describe('UpdateCustomer', () => {
   })
 
   it('email existe e nao e do cliente', async () => {
-    await createCustomer.execute({
+    await fakeCustomersRepository.create({
       name: 'Augusto Kauan',
       email: 'augusto@gmail.com',
     });
 
-    const customer = await createCustomer.execute({
+    const customer = await fakeCustomersRepository.create({
       name: 'Alisson Rhuan',
       email: 'alisson@gmail.com',
     });
